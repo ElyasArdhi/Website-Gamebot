@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tic Tac Toe - Player vs Computer</title>
+    <style>
+        /* Gaya CSS untuk tampilan permainan */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffffff; /* Latar belakang putih */
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 50px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .cell:hover {
+            background-color: #ddd;
+        }
+
+        .menu-button {
+            margin-top: 20px;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .score {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+    </style>
+<head>
+    <!-- Script AdMob di dalam tag head -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-app-pub-4591271483585904~4041515265",
+            enable_page_level_ads: true
+        });
+    </script>
+</head>
+   <div class="container">
+        <h1>Tic Tac Toe - Player vs Computer</h1>
+        <div class="board">
+            <div class="cell" onclick="handleClick(0)"></div>
+            <div class="cell" onclick="handleClick(1)"></div>
+            <div class="cell" onclick="handleClick(2)"></div>
+            <div class="cell" onclick="handleClick(3)"></div>
+            <div class="cell" onclick="handleClick(4)"></div>
+            <div class="cell" onclick="handleClick(5)"></div>
+            <div class="cell" onclick="handleClick(6)"></div>
+            <div class="cell" onclick="handleClick(7)"></div>
+            <div class="cell" onclick="handleClick(8)"></div>
+        </div>
+        <div class="score">
+            Player: <span id="playerScore">0</span> | Computer: <span id="computerScore">0</span>
+        </div>
+        <button class="menu-button" onclick="restartGame()">Mulai Ulang</button>
+    </div>
+
+    <script>
+        const cells = document.querySelectorAll('.cell');
+        let currentPlayer = 'X';
+        let gameEnded = false;
+        let playerScore = 0;
+        let computerScore = 0;
+
+        const playerScoreElement = document.getElementById('playerScore');
+        const computerScoreElement = document.getElementById('computerScore');
+
+        cells.forEach(cell => {
+            cell.addEventListener('click', handleClick);
+        });
+
+        function handleClick(event) {
+            const cell = event.target;
+
+            if (!cell || typeof cell.innerText === 'undefined' || cell.innerText !== '' || gameEnded) return;
+
+            cell.innerText = currentPlayer;
+
+            if (checkWin()) {
+                alert(`Player ${currentPlayer} wins!`);
+                updateScore('player');
+                gameEnded = true;
+                return;
+            }
+
+            if (checkDraw()) {
+                alert('It\'s a draw!');
+                gameEnded = true;
+                return;
+            }
+
+            currentPlayer = 'O'; // Computer's turn
+            setTimeout(makeComputerMove, 500); // Introduce a delay for a more natural feel
+        }
+
+        function makeComputerMove() {
+            const emptyCells = [...cells].filter(cell => cell.innerText === '');
+            let computerMove = getBestMove(emptyCells);
+
+            if (!computerMove) {
+                computerMove = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+            }
+
+            if (computerMove) {
+                computerMove.innerText = 'O';
+
+                if (checkWin()) {
+                    alert('Computer wins!');
+                    updateScore('computer');
+                    gameEnded = true;
+                    return;
+                }
+
+                if (checkDraw()) {
+                    alert('It\'s a draw!');
+                    gameEnded = true;
+                    return;
+                }
+
+                currentPlayer = 'X'; // Player's turn
+            }
+        }
+
+        function getBestMove(emptyCells) {
+            for (let move of emptyCells) {
+                move.innerText = 'O';
+
+                if (checkWin()) {
+                    move.innerText = '';
+                    return move;
+                }
+
+                move.innerText = 'X';
+
+                if (checkWin()) {
+                    move.innerText = '';
+                    return move;
+                }
+
+                move.innerText = '';
+            }
+
+            // If the center is available, take it
+            const centerCell = emptyCells.find(cell => cell.dataset.index === '4');
+            if (centerCell) {
+                return centerCell;
+            }
+
+            // If the player is close to winning, block them
+            const blockingMove = getBlockingMove(emptyCells);
+            if (blockingMove) {
+                return blockingMove;
+            }
+
+            // If no winning or blocking moves, return a random move
+            return emptyCells[Math.floor(Math.random() * emptyCells.length)];
+        }
+
+        function getBlockingMove(emptyCells) {
+            const winningCombos = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6]
+            ];
+
+            for (const combo of winningCombos) {
+                const [a, b, c] = combo;
+                const comboValues = [cells[a].innerText, cells[b].innerText, cells[c].innerText];
+
+                if (comboValues.filter(val => val === 'X').length === 2 && comboValues.includes('')) {
+                    return comboValues.indexOf('') === 0 ? cells[a] : comboValues.indexOf('') === 1 ? cells[b] : cells[c];
+                }
+            }
+
+            return null;
+        }
+
+        function checkWin() {
+            const winningCombos = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6]
+            ];
+
+            return winningCombos.some(combo => {
+                const [a, b, c] = combo;
+                return (
+                    cells[a].innerText === currentPlayer &&
+                    cells[b].innerText === currentPlayer &&
+                    cells[c].innerText === currentPlayer
+                );
+            });
+        }
+
+        function checkDraw() {
+            return [...cells].every(cell => cell.innerText !== '');
+        }
+
+        function updateScore(winner) {
+            if (winner === 'player') {
+                playerScore++;
+                playerScoreElement.innerText = playerScore;
+            } else if (winner === 'computer') {
+                computerScore++;
+                computerScoreElement.innerText = computerScore;
+            }
+        }
+
+        function restartGame() {
+            cells.forEach(cell => {
+                cell.innerText = '';
+            });
+            currentPlayer = 'X';
+            gameEnded = false;
+        }
+    </script>•
+
+  <!-- Script untuk memuat file JavaScript -->
+  <script src="main.js" defer></script>
+
+<body>
+    <!-- Iklan AdMob di dalam tag body -->
+    <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-app-pub-4591271483585904~4041515265"
+        data-ad-slot="1850466192"
+        data-ad-format="auto"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    <!-- Sisanya dari kode HTML dan JavaScript permainan Tic Tac Toe -->
+</body>

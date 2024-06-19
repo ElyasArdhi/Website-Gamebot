@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Intro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        #intro-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #logo {
+            width: 200px; /* Sesuaikan ukuran logo sesuai kebutuhan */
+            height: auto;
+            margin-bottom: 20px;
+            opacity: 0; /* Atur opasitas awal menjadi 0 */
+            transition: opacity 2s ease-in-out; /* Tambahkan efek transisi untuk perlahan muncul selama 2 detik */
+        }
+
+        #intro-text {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="intro-container">
+        <img id="logo" src="bor.png" alt="Logo Game">
+        <div id="intro-text"></div>
+    </div>
+
+    <script>
+        // Data intro game
+        const introData = [];
+
+        // Fungsi untuk menampilkan intro secara acak
+        function displayRandomIntro() {
+            const introTextElement = document.getElementById("intro-text");
+            const randomIndex = Math.floor(Math.random() * introData.length);
+            introTextElement.textContent = introData[randomIndex];
+        }
+
+        // Tampilkan gambar secara perlahan
+        window.onload = function () {
+            displayRandomIntro();
+
+            setTimeout(function () {
+                document.getElementById("logo").style.opacity = "1";
+            }, 1000); // Tunggu 1 detik sebelum mulai efek transisi
+
+            setTimeout(function () {
+                // Pindah ke layar menu
+                window.location.href = "menu.html"; // Ganti "menu.html" dengan halaman menu yang sesuai
+            }, 3000); // Otomatis mulai game setelah 3 detik
+        };
+    </script>
+</body>
+
+</html>
+ 

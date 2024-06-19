@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Angry Birds</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<style type="text/css">
+	#gameBanner{
+		width: 100%;height: 100%;
+	}
+	</style>
+
+</head>
+<body>
+<div id = "container"  style="margin: 0 auto;">
+	<div id="playground">
+		<img src="images/catapult.png">
+		<div id="gameBanner">
+		</div>
+	</div>
+
+<!-- options menubar is here. visibility is =hidden-->
+	
+	<div id="soundOptions" >
+		Enable Sound
+		<ul>
+			<li onclick = "enableSound(1)"><a href="#"><img src="images/yes.png" alt="yes"></a></li>
+			<li onclick = "enableSound(0)"><a href="#"><img src="images/no.png" alt="no"></a></li>
+		</ul>
+	</div>
+
+	<div id="tips">
+		<img src="images/tips1.png">
+		<a href = '#' onclick="userOk()"><img src="images/yes.png"></a>
+	</div>
+
+	<div id="playgameOptions">
+		START GAME
+		<div  style="clear:both;margin:0 auto;margin-top:10px;">
+			<a href="#" onclick="startGame(0)"><img src="images/next.png"></a>
+		</div>
+		</div>
+	
+	<div id="levelEnded">
+		Level Ended
+		<ul>
+			<li><a href="#" onclick=showEvent(0)><img src="images/menu.png" alt="menu"></a></li>
+			<li><a href="#" onclick=showEvent(1)><img src="images/restart.png" alt="menu"></a></li>
+			<li><a href="#" onclick=showEvent(2)><img src="images/next.png" alt="menu"></a></li>
+		</ul>
+	</div>
+
+	<div id="levelFail">
+		Level failed
+		<ul>
+			<li style="float:left;margin-left:40px;"><a href="#" onclick=showEvent(0)><img src="images/menu.png" alt="menu"></a></li>
+			<li style="float:right;margin-right:40px;"><a href="#" onclick=showEvent(1)><img src="images/restart.png" alt="menu"></a></li>
+		</ul>
+	</div>
+</div>
+<script type="text/javascript" src="js/leveldata.js"></script>
+<script type="text/javascript" src = "js/Bird.js"></script>
+<script type="text/javascript" src = "js/catapult.js"></script>
+<script type="text/javascript" src = "js/Monkey.js"></script>
+<script type="text/javascript" src = "js/Box.js"></script>
+<script type="text/javascript" src = "js/monkeyhouse.js"></script>
+<script type="text/javascript" src = "js/addScore.js"></script>
+<script type="text/javascript" src = "js/scene.js"></script>
+<script type="text/javascript" src = "js/Game.js"></script>
+<script type="text/javascript">
+	
+	var level = 0;
+	var game = new Game();
+	var activeDiv = 0;
+	var userstatus = false;
+	showDiv(0);
+//	mybutton.element.style.innerHTML('START GAME ')
+	function startGame(currentLevel){
+		level = currentLevel;
+		hideDiv();
+		if(level<6){
+			game.initGame(level);
+			var mine = game.playGame();	
+		}
+		else{
+			level = 0;
+			console.log('total level ended here..require more level data from here');
+		}
+	}
+
+	function userOk(){
+		hideDiv();
+		showDiv(1);
+	}
+
+	function enableSound(choice){
+		if(choice ==1){
+			var myaudio = new Audio("bgmusic.mp3");
+    		myaudio.play();
+		}
+		hideDiv();
+		showDiv(2);	
+	}
+
+    function showEvent(userInput){
+    	if(userInput ==0){
+    		console.log('menu');
+    	}
+
+    	if(userInput == 1){
+    		console.log('restart');
+    		startGame(level);
+    	}
+
+    	if(userInput == 2){
+    		console.log('next game');
+    		level++;
+    		startGame(level);
+    	}
+	}
+
+	//options indicator for animating. 0 for sound options,1 for start game,2 for levelfailed,3 for levelCompleted
+
+	function showDiv(num){
+		activeDiv = num;
+		console.log(num);
+		document.getElementById('gameBanner').style.visibility = 'visible';
+		if(num == 0){
+				document.getElementById('soundOptions').style.visibility = 'visible';
+				document.getElementById('soundOptions').setAttribute('class', 'show');
+		}
+		else if(num == 1){
+				document.getElementById('playgameOptions').style.visibility = 'visible';
+				document.getElementById('playgameOptions').setAttribute('class', 'show');
+		}
+		else if(num == 2){
+				document.getElementById('tips').style.visibility = 'visible';
+				document.getElementById('tips').setAttribute('class', 'show');
+		}
+		else if(num == 3){
+				document.getElementById('levelFail').style.visibility = 'visible';
+				document.getElementById('levelFail').setAttribute('class', 'show');
+		}
+		else if(num == 4){
+				document.getElementById('levelEnded').style.visibility = 'visible';
+				document.getElementById('levelEnded').setAttribute('class', 'show');
+		}
+		else{
+			console.log('no animation');
+		}
+	}
+
+	function hideDiv(){
+		document.getElementById('gameBanner').style.visibility = 'hidden';
+		if(activeDiv == 0){
+				document.getElementById('soundOptions').setAttribute('class', 'hide');
+		}
+		else if(activeDiv == 1){
+				document.getElementById('playgameOptions').setAttribute('class', 'hide');
+		}
+		else if(activeDiv == 2){
+				document.getElementById('tips').setAttribute('class', 'hide');
+		}
+		else if(activeDiv == 3){
+				document.getElementById('levelFail').setAttribute('class', 'hide');
+		}
+		else if(activeDiv == 4){
+				document.getElementById('levelEnded').setAttribute('class', 'hide');
+		}
+		else{
+			console.log('no animation');
+		}
+	}
+
+	function showCoords(event) {
+    var cX = event.clientX;
+    var sX = event.screenX;
+    var cY = event.clientY;
+    var sY = event.screenY;
+    var coords1 = "client - X: " + cX + ", Y coords: " + cY;
+    var coords2 = "screen - X: " + sX + ", Y coords: " + sY;
+//    document.getElementById("demo").innerHTML = coords1 + "<br>" + coords2;
+//	console.log('x : ',cX);
+//	console.log('Y : ',cY);
+}	
+ 
+</script>
+</body>
+</html>

@@ -1,0 +1,313 @@
+
+@font-face {
+    font-family: angrybirds-regular;
+    src: url(../angrybirds-regular.ttf);
+}
+
+body{
+	margin: 0 auto;
+}
+
+.container{
+	overflow: hidden;
+}
+
+#playground{
+	position: relative;
+	height: 630px;
+	width: 100%;
+	background-image: url("../images/mybg.png");
+	background:cover;
+	background-repeat: repeat-x;
+}
+
+#playground img{
+	position: absolute;
+	top: 360px;
+	left: 200px;
+	width: 50px;
+	height: 100px;
+	-khtml-user-select: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#playinglevel{
+	width: 1300px;
+	height: 620px;
+	position: relative;
+	top: 10px;
+}
+
+#bg {
+  position: fixed; 
+  top: 0; 
+  left: 0; 	
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 550px;
+}
+
+#playinglevel img{
+	width: 50px;
+	height: 100px;
+}
+
+#mybtn{
+	font-size:40px;
+	margin:0 auto;
+	position:absolute;
+	top:50px;
+	left:400px;
+	width: 600px;
+	height: 400px;
+	padding:50px;
+	background-image:url("../images/cover.jpg");
+	background-repeat: no-repeat;
+	border:none;
+	opacity:0.5;
+}
+
+.box{
+	width: 45px;
+	height: 45px;
+	display: block;
+	position: absolute;
+	top:0px;
+	left: 0px;
+	border-radius:45px; 
+}
+
+.brick{
+	width: 10px;
+	height: 10px;
+	display: block;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+.green{
+	background-image: url("../images/redbird.png");
+	background-repeat: no-repeat;
+}
+
+.red{
+	background-color: red;
+}
+
+.monkey{
+	width: 45px;
+	height: 45px;
+	display: block;
+	background-image: url("../images/monkey.png");
+	border-radius: 45px;
+}
+
+.glass{
+	background-image: url("../images/glass.png");
+	background-repeat: repeat;
+}
+
+.stone{
+	background-image: url("../images/stone.png");
+	background-repeat: repeat;
+}
+
+.wood{
+	background-image: url("../images/wood.png");
+	background-repeat: repeat;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes mymove {
+    100% {-webkit-transform: rotate(360deg);}
+}
+
+/* Standard syntax */
+@keyframes mymove {
+    100% {transform: rotate(360deg);}
+}
+
+.scoreBoard{
+	font-size: 20px;
+	position: absolute;
+	padding-top: 10px;
+	top: 10px;
+	left:80%;
+	z-index: 5;
+	font-family: angrybirds-regular;
+	color:yellow;
+}
+
+.scoreBoard:hover{
+	transition:all 2s;
+	-moz-transform: scale(3) translate(-190px,50px);
+	-webkit-transform: scale(3) translate(-190px,50px);
+	-o-transform: scale(3) translate(-190px,50px);
+	transform:  scale(3) translate(-190px,50px);
+}
+
+
+.score{
+	font-size: 20px;
+	width: 100px;
+	position: absolute;
+	border-radius: 20px;
+	top:0px;
+	left: 0px;
+	z-index: 6;
+	font-family: angrybirds-regular;
+	color:yellow;
+}
+
+#levelEnded{
+	position: absolute;
+	width: 425px;
+	height: 150px;
+	left:30%;
+	top: -150px;
+	margin: 0 auto;
+	background-color:white; 
+	font-family: angrybirds-regular;
+	padding-top: 40px;
+	border:5px solid yellow;
+	border-radius: 10px;
+	font-size:50px;
+	text-align: center;
+	visibility: hidden;
+}
+
+#levelEnded ul{
+	position: absolute;
+	bottom:-30px;
+	margin-left: 30px;
+}
+
+#levelEnded li{
+	float: left;
+	margin-right: 50px;
+}
+
+#levelFail{
+	position: absolute;
+	width: 425px;
+	height: 150px;
+	left:30%;
+	top: -150px;
+	margin: 0 auto;
+	background-color:white; 
+	font-family: angrybirds-regular;
+	padding-top: 40px;
+	border:5px solid yellow;
+	border-radius: 10px;
+	font-size:50px;
+	text-align: center;
+	visibility: hidden;
+}
+
+#levelFail ul{
+	position: absolute;
+	bottom:-30px;
+	margin-left: 30px;
+}
+
+#levelFail li{
+	float: left;
+	padding-right: 50px;
+	margin-right: 50px;
+}
+
+
+#soundOptions{
+	position: absolute;
+	width: 425px;
+	height: 150px;
+	left:30%;
+	top: -150px;
+	margin: 0 auto;
+	background-color:white; 
+	font-family: angrybirds-regular;
+	padding-top: 40px;
+	border:5px solid yellow;
+	border-radius: 10px;
+	font-size:50px;
+	text-align: center;
+	visibility: hidden;
+}
+
+#soundOptions ul{
+	position: absolute;
+	bottom:-30px;
+	margin-left: 50px;
+}
+
+#soundOptions li{
+	float: left;
+	list-style:none;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+#playgameOptions{
+	position: absolute;
+	width: 425px;
+	height: 150px;
+	left:30%;
+	top: -150px;
+	margin: 0 auto;
+	background-color:white; 
+	font-family: angrybirds-regular;
+	padding-top: 40px;
+	border:5px solid yellow;
+	border-radius: 10px;
+	font-size:50px;
+	text-align: center;
+	visibility: hidden;
+}
+
+.show{
+	background-color: blue;
+	opacity: 1;
+	transition :all 2s;
+	-moz-transform: translate(0px,400px);
+	-webkit-transform:  translate(0px,400px);
+	-o-transform: translate(0px,400px);
+	transform:  translate(0px,400px);
+}
+
+.hide{
+	background-color: red;
+	opacity: 0;
+	transition :all 1s;
+	-moz-transform: translate(0px,-200px);
+	-webkit-transform:  translate(0px,-200px);
+	-o-transform: translate(0px,-200px);
+	transform:  translate(0px,-200px);
+}
+
+#gameBanner{
+	background-image: url("../images/slidercover.png");
+	background-repeat: repeat;
+	visibility: visible;
+}
+
+#tips{
+	position: absolute;
+	width: 425px;
+	height: 300px;
+	left:30%;
+	top: -200px;
+	margin: 0 auto;
+	background-color:white; 
+	font-family: angrybirds-regular;
+	padding-top: 40px;
+	border:5px solid yellow;
+	border-radius: 10px;
+	font-size:50px;
+	text-align: center;
+	visibility: hidden;
+}
+

@@ -1,0 +1,112 @@
+/* bahan persiapan */
+
+@font-face {
+    font-family: sans-serif;
+    src: url(/font/Cross\ Boxed.ttf);
+}
+
+@font-face {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    src: url(/font/Dinofiles.ttf);
+}
+
+:root {
+    --background: rgb(29, 30, 32);
+    --inti: rgb(211, 211, 5);
+    --inti2: rgb(255, 255, 255);
+    --inti3: rgb(65, 177, 221);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    text-decoration: none;
+}
+
+body {
+    background-color: #010101;
+    color: white Geneva, Verdana, sans-serif;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma,;
+    height: 2000px;
+
+}
+
+/* bahan persiapan akhir*/
+
+/* navbar awal */
+nav {
+    top: 0;
+    left: 0;
+    margin: 0;
+    width: 100vw;
+    position: fixed;
+    border-bottom: 1px solid var(--inti2);
+    backdrop-filter: blur(10px) ;
+}
+
+nav .container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+    margin: 10px 0px;
+
+}
+
+/* logo */
+nav .container .logo a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+    color: var(--inti2);
+    cursor: pointer;
+    justify-content: space-around;
+}
+
+nav .container .logo a img {
+    width: 100px;
+    margin: 0px 10px;
+}
+
+nav .container .logo a h1 {
+    font-family: serif;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+
+/* search form */
+
+nav .container .search-form {
+    display: flex;
+    align-items: center;
+    background-color: var(--inti2);
+    width: 300px;
+    justify-content: space-around;
+    border-radius: 5px;
+}
+
+nav .container .search-form #slogo {
+    font-size: 15px;
+    height: 40px;
+}
+
+
+
+/* navbar akhir */
+
+/* header awal */
+.layarutama {
+   min-height: 100vh;
+   display: flex;
+   background-image: url(background_komputer.jpg);
+   background-size: cover;
+   background-repeat: no-repeat;
+   object-fit: cover;
+}
+/* header akhir */

@@ -1,0 +1,12 @@
+{
+  "name": "Potent Direction",
+  "short_name": "Potent Direction",
+  "id": "com.example.smoothy",
+  "description": "A Zuma clone to show how to orginize a project with behaviors.",
+  "orientation": "landscape",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "black",
+  "categories": ["games", "entertainment"],
+  "icons": []
+}
